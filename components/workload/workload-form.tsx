@@ -20,22 +20,7 @@ import { createWorkload, updateWorkload, getWorkloadById } from "@/lib/api/workl
 import { fetchStaff } from "@/lib/api/staff-api"
 import type { WorkloadRequest } from "@/types/workload"
 import type { Staff } from "@/types/staff"
-
-// Define the form schema with Zod
-const workloadFormSchema = z.object({
-  staffId: z.string().min(1, { message: "Staff member is required" }),
-  date: z.date({ required_error: "Date is required" }),
-  patientCount: z.coerce.number().int().min(0, { message: "Patient count must be a positive number" }),
-  appointmentCount: z.coerce.number().int().min(0, { message: "Appointment count must be a positive number" }),
-  procedureCount: z.coerce.number().int().min(0, { message: "Procedure count must be a positive number" }),
-  surgeryCount: z.coerce.number().int().min(0, { message: "Surgery count must be a positive number" }),
-  consultationCount: z.coerce.number().int().min(0, { message: "Consultation count must be a positive number" }),
-  hoursWorked: z.coerce
-    .number()
-    .min(0, { message: "Hours worked must be a positive number" })
-    .max(24, { message: "Hours worked cannot exceed 24" }),
-  notes: z.string().optional(),
-})
+import { workloadFormSchema } from "@/lib/validation"
 
 type WorkloadFormValues = z.infer<typeof workloadFormSchema>
 

@@ -7,7 +7,7 @@ import { StaffDetailSkeleton } from "@/components/staff/staff-detail-skeleton"
 
 export default function StaffDetailPage({ params }: { params: { id: string } }) {
   return (
-    <div className="container py-10">
+    <div className="w-full h-full flex flex-col items-center justify-center p-4">
       <div className="flex items-center mb-6">
         <Button variant="ghost" size="icon" asChild className="mr-2">
           <Link href="/admin/staff">
@@ -17,7 +17,7 @@ export default function StaffDetailPage({ params }: { params: { id: string } }) 
         </Button>
         <h1 className="text-3xl font-bold tracking-tight">Staff Details</h1>
       </div>
-      <Suspense fallback={<StaffDetailSkeleton />}>
+      <Suspense fallback={<StaffDetailSkeleton />} >
         <StaffDetail id={params.id} />
       </Suspense>
     </div>

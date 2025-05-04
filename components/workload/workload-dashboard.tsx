@@ -17,7 +17,7 @@ export function WorkloadDashboard() {
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-col sm:flex-row justify-between gap-4">
+      <div className="flex flex-col sm:flex-row justify-between gap-4 items-end">
         <WorkloadFilter filters={filters} setFilters={setFilters} />
         <Button asChild className="w-full sm:w-auto">
           <Link href="/admin/staff/workload/create">
