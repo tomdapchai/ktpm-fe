@@ -11,10 +11,10 @@ export function StaffDashboard() {
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-col sm:flex-row justify-between gap-4">
+      <div className="flex flex-col sm:flex-row justify-between items-end gap-4">
         <StaffFilter filters={filters} setFilters={setFilters} />
         <Button asChild className="w-full sm:w-auto">
-          <Link href="/staff/create">
+          <Link href="/admin/staff/create">
             <Plus className="mr-2 h-4 w-4" />
             Add New Staff
           </Link>

@@ -28,7 +28,7 @@ const AdminLoginPage = () => {
       const success = await login(username, password, "ADMIN");
       
       if (success) {
-        router.push("/staff"); // Redirect to admin dashboard
+        router.push("/admin/staff"); // Redirect to admin dashboard
       } else {
         setError("Login failed. Please check your credentials.");
       }

@@ -130,7 +130,7 @@ export function StaffForm({ id }: StaffFormProps = {}) {
       }
 
       // Redirect to staff list
-      router.push("/staff")
+      router.push("/admin/staff")
       router.refresh()
     } catch (error) {
       console.error("Failed to save staff:", error)
@@ -571,7 +571,7 @@ export function StaffForm({ id }: StaffFormProps = {}) {
           </div>
 
           <div className="flex justify-end gap-4">
-            <Button type="button" variant="outline" onClick={() => router.push("/staff")}>
+            <Button type="button" variant="outline" onClick={() => router.push("/admin/staff")}>
               Cancel
             </Button>
             <Button type="submit" disabled={loading}>

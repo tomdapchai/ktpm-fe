@@ -1,111 +1,42 @@
 import { type NextRequest, NextResponse } from "next/server"
 import type { Staff, StaffType } from "@/types/staff"
-
-// Mock data - this would be imported from a shared source in a real app
-const staffData: Staff[] = [
-  {
-    id: 1,
-    fullName: "Dr. John Smith",
-    email: "john.smith@hospital.com",
-    phoneNumber: "+1 (555) 123-4567",
-    address: "123 Medical Drive, Healthcare City, HC 12345",
-    dateOfBirth: "1980-05-15",
-    gender: "Male",
-    staffType: "DOCTOR",
-    department: "Cardiology",
-    position: "Senior Cardiologist",
-    qualifications: ["MD", "PhD", "FACC"],
-    specializations: ["Interventional Cardiology", "Cardiac Electrophysiology"],
-    joiningDate: "2015-03-10",
-    active: true,
-  },
-  {
-    id: 2,
-    fullName: "Nurse Sarah Johnson",
-    email: "sarah.johnson@hospital.com",
-    phoneNumber: "+1 (555) 234-5678",
-    address: "456 Nursing Blvd, Healthcare City, HC 12345",
-    dateOfBirth: "1988-09-22",
-    gender: "Female",
-    staffType: "NURSE",
-    department: "Emergency",
-    position: "Head Nurse",
-    qualifications: ["BSN", "RN"],
-    specializations: ["Emergency Care", "Trauma Care"],
-    joiningDate: "2017-06-15",
-    active: true,
-  },
-  {
-    id: 3,
-    fullName: "Admin Michael Brown",
-    email: "michael.brown@hospital.com",
-    phoneNumber: "+1 (555) 345-6789",
-    address: "789 Admin Street, Healthcare City, HC 12345",
-    dateOfBirth: "1975-12-03",
-    gender: "Male",
-    staffType: "ADMIN",
-    department: "Administration",
-    position: "Hospital Administrator",
-    qualifications: ["MBA", "MHA"],
-    specializations: ["Healthcare Management", "Hospital Operations"],
-    joiningDate: "2010-01-20",
-    active: true,
-  },
-  {
-    id: 4,
-    fullName: "Dr. Emily Davis",
-    email: "emily.davis@hospital.com",
-    phoneNumber: "+1 (555) 456-7890",
-    address: "101 Doctor Lane, Healthcare City, HC 12345",
-    dateOfBirth: "1983-07-18",
-    gender: "Female",
-    staffType: "DOCTOR",
-    department: "Neurology",
-    position: "Neurologist",
-    qualifications: ["MD", "PhD"],
-    specializations: ["Clinical Neurology", "Neurodegenerative Diseases"],
-    joiningDate: "2016-09-05",
-    active: true,
-  },
-  {
-    id: 5,
-    fullName: "Nurse Robert Wilson",
-    email: "robert.wilson@hospital.com",
-    phoneNumber: "+1 (555) 567-8901",
-    address: "202 Nursing Circle, Healthcare City, HC 12345",
-    dateOfBirth: "1990-02-25",
-    gender: "Male",
-    staffType: "NURSE",
-    department: "Pediatrics",
-    position: "Pediatric Nurse",
-    qualifications: ["BSN", "RN", "PNCB"],
-    specializations: ["Pediatric Care", "Neonatal Care"],
-    joiningDate: "2018-04-12",
-    active: false,
-  },
-]
+import api from "@/lib/axios"
+import { AxiosError } from "axios"
 
 // GET staff by type
 export async function GET(request: NextRequest, { params }: { params: { staffType: string } }) {
-  const staffType = params.staffType as StaffType
+  const { staffType } = params
+  try {
+    const response = await api.get(`/staff/type/${staffType}`)
+    const staff: Staff[] = response.data.data
 
-  // Validate staff type
-  if (!["DOCTOR", "NURSE", "ADMIN"].includes(staffType)) {
+    return NextResponse.json({
+      status: 1073741824,
+      message: "Staff members retrieved successfully",
+      data: staff,
+    })
+  }
+  catch (error: unknown) {
+    const axiosError = error as AxiosError<any>;
+    console.error("Error retrieving staff members by type:", axiosError);
+    // if 401
+    if (axiosError.response && axiosError.response.status === 401) {
+      return NextResponse.json(
+        {
+          status: 0,
+          message: "Unauthorized",
+          data: null,
+        },
+        { status: 401 },
+      )
+    }
     return NextResponse.json(
       {
         status: 0,
-        message: "Invalid staff type",
-        data: [],
+        message: "Failed to retrieve staff members by type",
+        data: null,
       },
-      { status: 400 },
+      { status: 500 },
     )
   }
-
-  const filteredStaff = staffData.filter((staff) => staff.staffType === staffType)
-
-  return NextResponse.json({
-    status: 1073741824,
-    message: `Staff with type ${staffType} retrieved successfully`,
-    data: filteredStaff,
-  })
 }

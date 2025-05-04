@@ -60,7 +60,7 @@ export function StaffDetail({ id }: StaffDetailProps) {
         title: "Success",
         description: "Staff member has been deleted successfully.",
       })
-      router.push("/staff")
+      router.push("/admin/staff")
       router.refresh()
     } catch (error) {
       console.error("Failed to delete staff:", error)
@@ -83,7 +83,7 @@ export function StaffDetail({ id }: StaffDetailProps) {
         <p className="text-muted-foreground mb-4">
           The staff member you are looking for does not exist or has been removed.
         </p>
-        <Button onClick={() => router.push("/staff")}>Back to Staff List</Button>
+        <Button onClick={() => router.push("/admin/staff")}>Back to Staff List</Button>
       </div>
     )
   }
@@ -107,7 +107,7 @@ export function StaffDetail({ id }: StaffDetailProps) {
         </div>
         <div className="flex gap-2">
           <Button variant="outline" asChild>
-            <a href={`/staff/view/${id}/edit`}>
+            <a href={`/admin/staff/view/${id}/edit`}>
               <Edit className="mr-2 h-4 w-4" />
               Edit
             </a>

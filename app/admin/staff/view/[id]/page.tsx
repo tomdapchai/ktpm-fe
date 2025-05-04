@@ -10,7 +10,7 @@ export default function StaffDetailPage({ params }: { params: { id: string } }) 
     <div className="container py-10">
       <div className="flex items-center mb-6">
         <Button variant="ghost" size="icon" asChild className="mr-2">
-          <Link href="/staff">
+          <Link href="/admin/staff">
             <ArrowLeft className="h-4 w-4" />
             <span className="sr-only">Back to staff list</span>
           </Link>

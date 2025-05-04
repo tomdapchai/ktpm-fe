@@ -30,11 +30,11 @@ export function middleware(request: NextRequest) {
           const role = decoded.scope;
           
           if (role === 'ADMIN') {
-            return NextResponse.redirect(new URL('/staff', request.url));
+            return NextResponse.redirect(new URL('/admin/staff', request.url));
           } else if (role === 'STAFF') {
-            return NextResponse.redirect(new URL('/me', request.url));
+            return NextResponse.redirect(new URL('/staff/me', request.url));
           } else if (role === 'PATIENT') {
-            return NextResponse.redirect(new URL('/patient', request.url));
+            return NextResponse.redirect(new URL('/patient/me', request.url));
           }
         }
       } catch (error) {

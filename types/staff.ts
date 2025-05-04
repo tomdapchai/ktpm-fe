@@ -41,5 +41,4 @@ export interface StaffFilters {
   department: string
   specialization: string
   activeOnly: boolean
-  searchTerm: string
 }

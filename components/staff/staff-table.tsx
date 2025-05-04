@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, use } from "react"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Button } from "@/components/ui/button"
 import { ChevronLeft, ChevronRight, Edit, Eye, Trash2, ArrowUpDown } from "lucide-react"
@@ -28,8 +28,9 @@ interface StaffTableProps {
 
 export function StaffTable({ filters }: StaffTableProps) {
   const [staff, setStaff] = useState<Staff[]>([])
+  const [allStaff, setAllStaff] = useState<Staff[]>([])
   const [loading, setLoading] = useState(true)
-  const [currentPage, setCurrentPage] = useState(1)
+  const [currentPage, setCurrentPage] = useState(0)
   const [totalPages, setTotalPages] = useState(1)
   const [sortField, setSortField] = useState<string>("fullName")
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc")
@@ -38,7 +39,7 @@ export function StaffTable({ filters }: StaffTableProps) {
 
   useEffect(() => {
     loadStaff()
-  }, [filters, currentPage, sortField, sortDirection])
+  }, [filters, sortField, sortDirection])
 
   const loadStaff = async () => {
     setLoading(true)
@@ -62,13 +63,12 @@ export function StaffTable({ filters }: StaffTableProps) {
       data = sortStaff(data, sortField, sortDirection)
 
       // Client-side pagination
+      setAllStaff(data)
+
       setTotalPages(Math.ceil(data.length / itemsPerPage))
-
-      // Get current page items
-      const startIndex = (currentPage - 1) * itemsPerPage
-      const paginatedData = data.slice(startIndex, startIndex + itemsPerPage)
-
-      setStaff(paginatedData)
+      
+      // Reset to first page when filters change
+      setCurrentPage(1)
     } catch (error) {
       console.error("Failed to fetch staff:", error)
       toast({
@@ -79,6 +79,20 @@ export function StaffTable({ filters }: StaffTableProps) {
     } finally {
       setLoading(false)
     }
+  }
+
+  useEffect(() => {
+    setPage()
+  }, [currentPage, allStaff])
+
+  const setPage = () => {
+    setTotalPages(Math.ceil(allStaff.length / itemsPerPage))
+
+    // Get current page items
+    const startIndex = (currentPage - 1) * itemsPerPage
+    const paginatedData = allStaff.slice(startIndex, startIndex + itemsPerPage)
+
+    setStaff(paginatedData)
   }
 
   const sortStaff = (data: Staff[], field: string, direction: "asc" | "desc") => {
@@ -195,13 +209,13 @@ export function StaffTable({ filters }: StaffTableProps) {
                   <TableCell className="text-right">
                     <div className="flex justify-end gap-2">
                       <Button variant="outline" size="icon" asChild>
-                        <Link href={`/staff/view/${member.id}`}>
+                        <Link href={`/admin/staff/view/${member.id}`}>
                           <Eye className="h-4 w-4" />
                           <span className="sr-only">View</span>
                         </Link>
                       </Button>
                       <Button variant="outline" size="icon" asChild>
-                        <Link href={`/staff/view/${member.id}/edit`}>
+                        <Link href={`/admin/staff/view/${member.id}/edit`}>
                           <Edit className="h-4 w-4" />
                           <span className="sr-only">Edit</span>
                         </Link>
