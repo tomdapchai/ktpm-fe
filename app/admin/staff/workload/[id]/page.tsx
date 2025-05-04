@@ -7,7 +7,7 @@ import { WorkloadDetailSkeleton } from "@/components/workload/workload-detail-sk
 
 export default function WorkloadDetailPage({ params }: { params: { id: string } }) {
   return (
-    <div className="container py-10">
+    <div className="w-full h-full flex flex-col items-center justify-center p-4">
       <div className="flex items-center mb-6">
         <Button variant="ghost" size="icon" asChild className="mr-2">
           <Link href="/admin/staff/workload">

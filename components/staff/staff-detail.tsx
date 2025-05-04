@@ -90,7 +90,7 @@ export function StaffDetail({ id }: StaffDetailProps) {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-start">
+      <div className="flex justify-between gap-4 items-start">
         <div>
           <div className="flex items-center gap-2">
             <h2 className="text-2xl font-bold">{staff.fullName}</h2>

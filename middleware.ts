@@ -30,7 +30,7 @@ export function middleware(request: NextRequest) {
           const role = decoded.scope;
           
           if (role === 'ADMIN') {
-            return NextResponse.redirect(new URL('/admin/staff', request.url));
+            return NextResponse.redirect(new URL('/admin', request.url));
           } else if (role === 'STAFF') {
             return NextResponse.redirect(new URL('/staff/me', request.url));
           } else if (role === 'PATIENT') {

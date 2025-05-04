@@ -1,11 +1,11 @@
 import { Suspense } from "react"
-import { WorkloadDashboard } from "@/components/workload/workload-dashboard"
-import { WorkloadTableSkeleton } from "@/components/workload/workload-table-skeleton"
+import { ScheduleDashboard } from "@/components/schedule/schedule-dashboard"
+import { ScheduleTableSkeleton } from "@/components/schedule/schedule-table-skeleton"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft } from "lucide-react"
 import Link from "next/link"
 
-export default function WorkloadPage() {
+export default function SchedulePage() {
   return (
     <div className="w-full h-full flex flex-col items-center justify-center p-4">
       <div className="flex items-center mb-6">
@@ -15,10 +15,10 @@ export default function WorkloadPage() {
             <span className="sr-only">Back to staff list</span>
           </Link>
         </Button>
-        <h1 className="text-3xl font-bold tracking-tight">Staff Workload Management</h1>
+        <h1 className="text-3xl font-bold tracking-tight">Staff Schedule Management</h1>
       </div>
-      <Suspense fallback={<WorkloadTableSkeleton />}>
-        <WorkloadDashboard />
+      <Suspense fallback={<ScheduleTableSkeleton />}>
+        <ScheduleDashboard />
       </Suspense>
     </div>
   )
