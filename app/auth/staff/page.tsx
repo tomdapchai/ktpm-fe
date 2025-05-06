@@ -28,7 +28,7 @@ const StaffLoginPage = () => {
       const success = await login(username, password, "STAFF");
       
       if (success) {
-        router.push("/me"); // Redirect to staff dashboard
+        router.push("/staff/me"); // Redirect to staff dashboard
       } else {
         setError("Login failed. Please check your credentials.");
       }

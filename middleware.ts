@@ -18,7 +18,7 @@ export function middleware(request: NextRequest) {
   }
 
   // Public routes that don't require authentication
-  if (path.startsWith('/auth') || path === '/') {
+  if (path.startsWith('/auth')) {
     // If user is already logged in, redirect to dashboard
     if (token) {
       try {
@@ -68,7 +68,7 @@ export function middleware(request: NextRequest) {
       return NextResponse.redirect(new URL('/auth', request.url));
     }
 
-    if (path.startsWith('/me') && role !== 'STAFF') {
+    if (path.startsWith('/staff') && role !== 'STAFF') {
       return NextResponse.redirect(new URL('/auth', request.url));
     }
 

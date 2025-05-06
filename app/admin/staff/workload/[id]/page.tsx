@@ -5,7 +5,11 @@ import Link from "next/link"
 import { Suspense } from "react"
 import { WorkloadDetailSkeleton } from "@/components/workload/workload-detail-skeleton"
 
-export default function WorkloadDetailPage({ params }: { params: { id: string } }) {
+type PageProps = {
+  params: { id: string }
+}
+
+export default function WorkloadDetailPage({ params }: PageProps) {
   return (
     <div className="w-full h-full flex flex-col items-center justify-center p-4">
       <div className="flex items-center mb-6">

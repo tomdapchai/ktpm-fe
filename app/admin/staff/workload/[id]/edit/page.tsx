@@ -3,7 +3,11 @@ import { Button } from "@/components/ui/button"
 import { ArrowLeft } from "lucide-react"
 import Link from "next/link"
 
-export default function EditWorkloadPage({ params }: { params: { id: string } }) {
+type PageProps = {
+  params: { id: string }
+}
+
+export default function EditWorkloadPage({ params }: PageProps) {
   return (
     <div className="w-full h-full flex flex-col items-center justify-center p-4">
       <div className="flex items-center mb-6">

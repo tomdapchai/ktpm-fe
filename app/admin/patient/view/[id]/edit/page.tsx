@@ -3,7 +3,11 @@ import { Button } from "@/components/ui/button"
 import { ArrowLeft } from "lucide-react"
 import Link from "next/link"
 
-export default async function EditPatientPage({ params }: { params: { id: string } }) {
+type PageProps = {
+  params: { id: string }
+}
+
+export default function EditPatientPage({ params }: PageProps) {
   return (
     <div className="container py-10">
       <div className="flex items-center mb-6">
@@ -18,4 +22,4 @@ export default async function EditPatientPage({ params }: { params: { id: string
       <PatientForm id={params.id} />
     </div>
   )
-} 
+}

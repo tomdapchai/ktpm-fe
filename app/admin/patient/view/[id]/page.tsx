@@ -5,7 +5,11 @@ import Link from "next/link"
 import { Suspense } from "react"
 import { PatientDetailSkeleton } from "@/components/patient/patient-detail-skeleton"
 
-export default async function PatientDetailPage({ params }: { params: { id: string } }) {
+type PageProps = {
+  params: { id: string }
+}
+
+export default function PatientDetailPage({ params }: PageProps) {
   return (
     <div className="container py-10">
       <div className="flex items-center mb-6">

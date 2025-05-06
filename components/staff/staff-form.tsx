@@ -543,7 +543,7 @@ export function StaffForm({ id }: StaffFormProps = {}) {
                 name="subject"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Subject (Optional)</FormLabel>
+                    <FormLabel>Username</FormLabel>
                     <FormControl>
                       <Input placeholder="Subject" {...field} />
                     </FormControl>
